@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Management</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="product_table.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+</head>
+<body>
+
+  <div class="container">
+
+
+
+    <div class="left-column">
+      <div class="dashboard-logo">
+
+        <div class="logo-dash">
+          <img src="images/web-logo-cropped.svg" alt="walmart-logo">
+        </div>
+
+        <div class="dash-menu">
+          <div class="logo">
+            <i class="material-icons ">dashboard</i>
+          </div>
+          <div class="logo-heading" >
+            <h3>Dashboard</h3>
+          </div>
+        </div>
+        <div class="dash-menu">
+          <div class="logo">
+            <i class="material-icons ">list</i>
+          </div>
+          <div class="logo-heading" >
+            <h3>List</h3>
+          </div>
+        </div>
+        <div class="dash-menu">
+          <div class="logo">
+            <i class="material-icons ">add</i>
+          </div>
+          <div class="logo-heading" >
+            <h3 id="add-product">Add Entry</h3>
+          </div>
+        </div>
+        <div class="dash-menu">
+          <div class="logo">
+            <i class="material-icons ">filter_list</i>
+          </div>
+          <div class="logo-heading" >
+            <h3>Filters</h3>
+          </div>
+        </div>
+        <div class="dash-menu">
+          <div class="logo">
+            <i class="material-icons ">settings</i>
+          </div>
+          <div class="logo-heading" >
+            <h3>Setting</h3>
+          </div>
+        </div>
+
+        <div class="dash-menu logout">
+          <div class="logo ">
+            <i class="material-icons ">logout</i>
+          </div>
+          <div class="logo-heading" >
+            <h3>Logout</h3>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+<!-- Right Column which contain header and data table and other stuff related display and that is dynamic -->
+
+    <div class="right-column">
+    <header class="header">
+      <div class="head-container">
+
+        <span class="input-search">
+          <i class="material-icons">search</i>
+          <input
+          type="text"
+          id="searchInput"
+      
+          placeholder="Search..."
+        />
+      </span>
+
+      <div class="profile">
+ 
+        <span><img src="images/sir rizwan.png" alt="Rizwan Butt"></span>
+        <span><i class="material-icons">notifications</i></span>
+        <span class="dark-mode"><i class="material-icons">dark_mode</i></span>
+        <span class="light-mode"><i class="material-icons">light_mode</i></span>
+        <span><i class="material-icons">translate</i></span>
+      </div>
+
+      <span id="hamburger"><i class="material-icons" >hamburger_menus</i></span>
+    </header>
+
+    <!-- Products Data Table -->
+
+    <div class="product-table" id="productTableContainer">
+      
+    </div>
+
+    <div class="container-table">
+      
+      <div class="table-container">
+        <table class="data-table" id="dataTable">
+          <thead>
+            <tr>
+              <th>Select</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Vendor</th>
+              <th>InStock</th>
+              <th>Buying</th>
+              <th>Sale</th>
+              <th>Qty</th>
+              <th>Type</th>
+              <th>Rates</th>
+              <th>Limit</th>
+              <th>Location</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"> 
+
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Template for New Table Row -->
+
+      <template id="newRowTemplate">
+        <tr class="tableRows">
+          <td class="tableData"><input type="checkbox" /></td>
+          <td class="tableData">{{id}}</td>
+          <td class="tableData">{{productName}}</td>
+          <td class="tableData">{{productTitle}}</td>
+          <td class="tableData">{{description}}</td>
+          <td class="tableData">{{vendor}}</td>
+          <td class="tableData">{{inStock}}</td>
+          <td class="tableData">{{buyingPrice}}</td>
+          <td class="tableData">{{salePrice}}</td>
+          <td class="tableData">{{quantity}}</td>
+          <td class="tableData">{{type}}</td>
+          <td class="tableData">{{shippingRates}}</td>
+          <td class="tableData">{{refillLimit}}</td>
+          <td class="tableData">{{location}}</td>
+          <td class="action-cell">
+            <button class="action-btn del-btn">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+            <button class="action-btn editProducts">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </td>
+        </tr>
+      </template>
+
+      <!-- Modal For Viewing the Product's Details -->
+
+      <div class="modal-container">
+        <div class="inner-container">
+          <div class="cross-icon">
+            <span class="close-icon"><i class="material-icons" id="close-icon">close</i></span>
+          </div>
+          <div class="modal-heading">
+            <h1 id="modal-heading">Create Product</h1>
+          </div>
+          <form id="productForm">
+            <div class="form-rows">
+              <label for="productName">Product Name:</label>
+              <input
+                type="text"
+                id="productName"
+                name="productName"
+                data-field="ProductName"
+                required
+              />
+              <label for="productTitle">Title: </label>
+              <input
+                type="text"
+                id="productTitle"
+                name="productTitle"
+                data-field="Title"
+                required
+              />
+            </div>
+            <div class="form-rows">
+              <label for="description">Description: </label>
+              <input
+                type="text"
+                id="description"
+                name="description"
+                data-field="Description"
+                required
+              />
+              <label for="vendor">Vendor: </label>
+              <input
+                type="text"
+                id="vendor"
+                name="vendor"
+                data-field="Vendor"
+                required
+              />
+            </div>
+            <div class="form-rows">
+              <label for="inStock">In Stock: </label>
+              <input
+                type="text"
+                id="inStock"
+                name="inStock"
+                data-field="InStock"
+                required
+              />
+              <label for="buyingPrice">Buying Price: </label>
+              <input
+                type="text"
+                id="buyingPrice"
+                name="buyingPrice"
+                data-field="BuyingPrice"
+                required
+              />
+            </div>
+            <div class="form-rows">
+              <label for="salePrice">Sale Price: </label>
+              <input
+                type="text"
+                id="salePrice"
+                name="salePrice"
+                data-field="SalePrice"
+                required
+              />
+              <label for="quantity">Quantity: </label>
+              <input
+                type="text"
+                id="quantity"
+                name="quantity"
+                data-field="PurchaseQty"
+                required
+              />
+            </div>
+            <div class="form-rows">
+              <label for="type">Type: </label>
+              <input
+                type="text"
+                id="type"
+                name="type"
+                data-field="Type"
+                required
+              />
+              <label for="shippingRates">Shipping Rates: </label>
+              <input
+                type="text"
+                id="shippingRates"
+                name="shippingRates"
+                data-field="ShippingRates"
+                required
+              />
+            </div>
+            <div class="form-rows" style="margin-bottom: 1.5rem">
+              <label for="refillLimit">Refill Limit: </label>
+              <input
+                type="text"
+                id="refillLimit"
+                name="refillLimit"
+                data-field="RefillLimit"
+                required
+              />
+              <label for="location">Location: </label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                data-field="Location"
+                required
+              />
+            </div>
+
+            <div class="submit-btn">
+              <button type="submit" id="btn-text">Create</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </div>
+
+
+<!-- <script src="script.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/@iconify/iconify@latest/dist/iconify.min.js"></script>
+<script src="product-dom-interaction.js"></script>
+<script src="product-storage.js"></script>
+<script src="product-manager.js"></script>
+
+</body>
+</html>
