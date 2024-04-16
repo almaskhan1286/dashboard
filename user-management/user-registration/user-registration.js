@@ -42,8 +42,3 @@ class UserRegistration {
     }
 }
 
-// Initialize the registration process..
-
-// const registrationForm = document.getElementById("registrationForm");
-// const userManager = UserManager;
-// new UserRegistration(registrationForm, userManager);

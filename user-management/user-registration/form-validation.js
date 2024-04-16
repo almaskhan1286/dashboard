@@ -69,8 +69,7 @@ document.getElementById("registrationForm").addEventListener("submit", function 
         } else {
             console.error(error);
         }
-        return; // prevent default submission..
+        return; 
     }
 })
 
-// export default FormValidator;

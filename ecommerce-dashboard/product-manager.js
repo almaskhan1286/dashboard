@@ -17,16 +17,24 @@ class ProductManager {
         } 
     }
     
+    // Remove product from the table
     
     deleteProduct(id) {
-        // Remove product from the table
         const tableBody = document.getElementById('tableBody');
+        const allRows = tableBody.querySelectorAll('tr');
+        
+        allRows.forEach(row => {
+       
+        })
         const rowToRemove = document.querySelector(`tr[data-id="${id}"]`);
+        
         if (rowToRemove) {
             tableBody.removeChild(rowToRemove);
-            // Add alert for successful deletion
             alert("Product successfully deleted.");
+            
         } else {
+            
+            localStorage.clear();
             alert("Incorrect Product Id")
         }
     
@@ -34,16 +42,30 @@ class ProductManager {
         this.products = this.products.filter(product => product.id != id);
         this.saveProducts();
     }
+
+    // deleteProduct(id) {
+    //     this.products.splice(0,id);
+    //     localStorage.setItem('productData',JSON.stringify(this.products));
+    //     this.products = this.products.filter(product => product.id != id);
+    //     this.saveProducts();
+    // }
     
     
       
     editProduct(productId) {
+        console.log("PRODUCT: ",productId)
         const product = this.products.find(product => product.id === productId);
         if (product) {
             this.populateModal(product);
             this.showModal();
+            // Change the text of the submit button to 'Update'
+            document.getElementById('btn-text').innerText = 'Update';
+            // Change the modal heading to 'Edit Product'
+            document.getElementById('modal-heading').innerText = 'Edit Product';
+            // Add a data attribute to the form to store the id of the product being edited
+            this.form.setAttribute('data-product-id', productId);
         } else {
-            console.log('Product not found.');
+            alert('Product not found.');
         }
     }
 
@@ -66,7 +88,12 @@ class ProductManager {
     
     loadProducts() {
         const storedData = JSON.parse(localStorage.getItem("productData")) || [];
-        this.products =  storedData.map(data => new Product(...Object.values(data)));
+        
+        if (storedData !== null && Array.isArray(storedData)) {
+            this.products = storedData.map(data => new Product(data));
+        } else {
+            alert("No product data found in localStorage.");
+        }
     }
 
     saveProducts() {
@@ -84,7 +111,7 @@ class ProductManager {
         if (modal) {
             modal.style.display = "flex";  
         } else {
-            console.log("Modal container not found.")
+            alert("Modal container not found.")
         }
     }
 
@@ -93,7 +120,7 @@ class ProductManager {
         if (modal) {
             modal.style.display = "none";
         } else {
-            console.log("Modal not found.")
+            alert("Modal not found.")
         }
     }
 

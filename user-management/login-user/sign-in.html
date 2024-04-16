@@ -20,51 +20,7 @@
       </form>
     </div>
 
-    <!-- <script>
-   
-
-      document
-        .getElementById("signInForm")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
-
-          let usernameOrEmail = document.getElementById(
-            "usernameOrEmail"
-          ).value;
-          let password = document.getElementById("password").value;
-
-          if(!usernameOrEmail || !password){
-            alert("Please fill both Email & Password in Fields.")
-            return;
-          }
-
-          let getStoredUserData = localStorage.getItem("user");
-          console.log(getStoredUserData);
-
-          if (getStoredUserData) {
-            let storedUser = JSON.parse(getStoredUserData);
-            console.log(storedUser);
-
-            if (
-              (storedUser.username === usernameOrEmail ||
-                storedUser.email === usernameOrEmail) &&
-              storedUser.password === password
-            ) {
-              alert("SignIn Successfully!");
-
-              // window.location.replace="/Product_Management/product_management.html";
-          window.location.replace('/Product_Management/product_management.html');
-
-              // window.location.href = "/Product_Management/product_management.html";
-            } else {
-              alert("Invalid username/email or password. Kindly try again");
-            }
-          } else {
-            alert("No user exit. Kindly register first.");
-          }
-        });
-    </script> -->
-  
+    <!-- Script File -->
   <script src="sign-in.js"></script>
   </body>
 </html>
